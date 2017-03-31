@@ -13,6 +13,27 @@ var mainStage = new PIXI.Container();
 function init() {
   document.getElementById('container').appendChild(renderer.view);
   resize();
-  mainStage.addChild(new Button())
+
+  var b = new Button();
+  b.on('pointerdown', b.onPressed)
+  b.on('pointerup', b.onReleased)
+
+  var b1 = new Button();
+  b1.on('pointerdown', b1.onPressed)
+  b1.on('pointerup', b1.onReleased)
+  b1.x = 200
+  b1.y = 200
+
+
+
+  mainStage.addChild(b)
+  mainStage.addChild(b1)
+
+  render()
+}
+
+
+function render() {
   renderer.render(mainStage);
+  requestAnimationFrame(render)
 }
