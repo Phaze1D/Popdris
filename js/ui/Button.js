@@ -1,7 +1,6 @@
 
 
 
-
 var Button = function (label, normalSprite, pressedSprite, labelStyle ) {
   Sprite.call(this, resources.ui.textures[normalSprite]);
   this.interactive = true;
@@ -38,15 +37,14 @@ Button.labelButtonFactory = function (label, normalSprite, pressedSprite, labelS
   return button
 }
 
-
-Button.raiseLabelStyle = {
+Button.RAISE_STYLE = {
   fontWeight: 'bold',
   fontSize: 60,
   fontFamily: 'Varela Round',
   fill: '#fafafa'
 }
 
-Button.flatLabelStyle = {
+Button.FLAT_STYLE = {
   fontWeight: 'bold',
   fontSize: 60,
   fontFamily: 'Varela Round',

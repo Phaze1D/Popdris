@@ -1,13 +1,8 @@
 
 var StartScene = function (onPlayTap, onHelpTap) {
 
-  if(typeof onPlayTap !== 'function'){
-    throw new TypeError('onPlayTap is not a function')
-  }
-
-  if(typeof onHelpTap !== 'function'){
-    throw new TypeError('onHelpTap is not a function')
-  }
+  if(typeof onPlayTap !== 'function') throw new TypeError('onPlayTap is not a function');
+  if(typeof onHelpTap !== 'function') throw new TypeError('onHelpTap is not a function');
 
   Container.call(this);
 
@@ -23,14 +18,14 @@ StartScene.prototype = Object.create(Container.prototype);
 StartScene.prototype.constructor = StartScene
 
 StartScene.prototype.__initPlayButton = function () {
-  this.playButton = Button.labelButtonFactory('PLAY', 'button_raised', 'button_flat', Button.raiseLabelStyle);
+  this.playButton = Button.labelButtonFactory('PLAY', 'button_raised', 'button_flat', Button.RAISE_STYLE);
   this.playButton.x = GAME_WIDTH/2
   this.playButton.y = GAME_HEIGHT/2
   this.addChild(this.playButton)
 }
 
 StartScene.prototype.__initHelpButton = function () {
-  this.helpButton = Button.labelButtonFactory('HELP', 'button_flatm', 'button_flatp', Button.flatLabelStyle);
+  this.helpButton = Button.labelButtonFactory('HELP', 'button_flatm', 'button_flatp', Button.FLAT_STYLE);
   this.helpButton.x = GAME_WIDTH/2
   this.helpButton.y = GAME_HEIGHT/2 + 80
   this.addChild(this.helpButton)
