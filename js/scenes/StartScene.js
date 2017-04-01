@@ -1,6 +1,5 @@
 
 var StartScene = function (onPlayTap, onHelpTap) {
-
   if(typeof onPlayTap !== 'function') throw new TypeError('onPlayTap is not a function');
   if(typeof onHelpTap !== 'function') throw new TypeError('onHelpTap is not a function');
 

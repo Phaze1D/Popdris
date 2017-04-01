@@ -1,6 +1,4 @@
 
-
-
 var Button = function (label, normalSprite, pressedSprite, labelStyle ) {
   Sprite.call(this, resources.ui.textures[normalSprite]);
   this.interactive = true;

@@ -1,4 +1,3 @@
-var loader = PIXI.loader
 var resources = PIXI.loader.resources
 var Container = PIXI.Container
 var Sprite = PIXI.Sprite
