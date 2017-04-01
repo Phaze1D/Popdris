@@ -38,23 +38,23 @@ StartScene.prototype.initHelpButton = function () {
 }
 
 StartScene.prototype.initBorder = function () {
-  this.border = new Graphics();
+  var border = new Graphics();
   var borderWidth = 4
-  this.border.lineStyle(borderWidth, 0x2979FF, 1);
-  this.border.drawRoundedRect(borderWidth, borderWidth, GAME_WIDTH-borderWidth*2, GAME_HEIGHT-borderWidth*2, 5);
-  this.border.endFill();
-  this.addChild(this.border)
+  border.lineStyle(borderWidth, 0x2979FF, 1);
+  border.drawRoundedRect(borderWidth, borderWidth, GAME_WIDTH-borderWidth*2, GAME_HEIGHT-borderWidth*2, 5);
+  border.endFill();
+  this.addChild(border)
 }
 
 StartScene.prototype.initTitle = function () {
-  this.title = new Text('Popdris', {
+  var title = new Text('Popdris', {
     fontWeight: 'bold',
     fontSize: 60,
     fontFamily: 'Varela Round',
     fill: '#2979FF'
   })
-  this.title.anchor.set(0.5)
-  this.title.x = GAME_WIDTH/2
-  this.title.y = 100
-  this.addChild(this.title)
+  title.anchor.set(0.5)
+  title.x = GAME_WIDTH/2
+  title.y = 100
+  this.addChild(title)
 }
