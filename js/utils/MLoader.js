@@ -1,4 +1,6 @@
 var MLoader = function (onLoaded) {
+  if(typeof onLoaded !== 'function') throw new TypeError('onHelpTap is not a function');
+
   this.onLoadHandler = onLoaded
   this.__initResourceArray()
   this.__initWebFonts()

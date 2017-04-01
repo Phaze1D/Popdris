@@ -8,8 +8,6 @@ const APP = new PIXI.Application(GAME_WIDTH, GAME_HEIGHT, {
 const M_LOADER = new MLoader(init)
 M_LOADER.loadAssets()
 
-
-
 function init() {
   document.getElementById('spinner').style.display = 'none'
   document.getElementById('container').appendChild(APP.view);
