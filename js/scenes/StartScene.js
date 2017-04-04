@@ -19,7 +19,7 @@ StartScene.prototype.constructor = StartScene
 
 StartScene.prototype.__initGenerator = function () {
   this.gen = new BubbleGenerator(StartScene.BUBBLE_GENERATOR_FUNC, GAME_WIDTH, GAME_HEIGHT)
-  this.gen.alpha = 0.5
+  // this.gen.alpha = 0.5
   this.gen.start()
   this.addChild(this.gen)
 }
@@ -52,6 +52,6 @@ StartScene.prototype.__initTitle = function () {
 }
 
 
-StartScene.BUBBLE_GENERATOR_FUNC = function () {
-  return {dropRate: 1/2, speed: 4}
+StartScene.BUBBLE_GENERATOR_FUNC = function (totalTime) {
+  return {dropRate: 1/5, speed: 4}
 }
