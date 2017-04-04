@@ -5,6 +5,7 @@ var StartScene = function (onPlayTap, onHelpTap) {
 
   Container.call(this);
 
+  this.__initGenerator()
   this.__initPlayButton()
   this.__initHelpButton()
   this.__initTitle()
@@ -15,6 +16,13 @@ var StartScene = function (onPlayTap, onHelpTap) {
 
 StartScene.prototype = Object.create(Container.prototype);
 StartScene.prototype.constructor = StartScene
+
+StartScene.prototype.__initGenerator = function () {
+  this.gen = new BubbleGenerator(StartScene.BUBBLE_GENERATOR_FUNC, GAME_WIDTH, GAME_HEIGHT)
+  this.gen.alpha = 0.5
+  this.gen.start()
+  this.addChild(this.gen)
+}
 
 StartScene.prototype.__initPlayButton = function () {
   this.playButton = Button.labelButtonFactory('PLAY', 'button_raised', 'button_flat', Button.RAISE_STYLE);
@@ -41,4 +49,9 @@ StartScene.prototype.__initTitle = function () {
   title.x = GAME_WIDTH/2
   title.y = 100
   this.addChild(title)
+}
+
+
+StartScene.BUBBLE_GENERATOR_FUNC = function () {
+  return {dropRate: 1/2, speed: 4}
 }

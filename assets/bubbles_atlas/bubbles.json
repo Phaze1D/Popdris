@@ -2,56 +2,56 @@
 
 "blue":
 {
-	"frame": {"x":0,"y":0,"w":64,"h":64},
+	"frame": {"x":2,"y":2,"w":60,"h":60},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
-	"sourceSize": {"w":64,"h":64},
+	"spriteSourceSize": {"x":0,"y":0,"w":60,"h":60},
+	"sourceSize": {"w":60,"h":60},
 	"pivot": {"x":0.5,"y":0.5}
 },
 "green":
 {
-	"frame": {"x":64,"y":0,"w":64,"h":64},
+	"frame": {"x":66,"y":2,"w":60,"h":60},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
-	"sourceSize": {"w":64,"h":64},
+	"spriteSourceSize": {"x":0,"y":0,"w":60,"h":60},
+	"sourceSize": {"w":60,"h":60},
 	"pivot": {"x":0.5,"y":0.5}
 },
 "grey":
 {
-	"frame": {"x":128,"y":0,"w":64,"h":64},
+	"frame": {"x":130,"y":2,"w":60,"h":60},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
-	"sourceSize": {"w":64,"h":64},
+	"spriteSourceSize": {"x":0,"y":0,"w":60,"h":60},
+	"sourceSize": {"w":60,"h":60},
 	"pivot": {"x":0.5,"y":0.5}
 },
 "purple":
 {
-	"frame": {"x":192,"y":0,"w":64,"h":64},
+	"frame": {"x":194,"y":2,"w":60,"h":60},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
-	"sourceSize": {"w":64,"h":64},
+	"spriteSourceSize": {"x":0,"y":0,"w":60,"h":60},
+	"sourceSize": {"w":60,"h":60},
 	"pivot": {"x":0.5,"y":0.5}
 },
 "red":
 {
-	"frame": {"x":256,"y":0,"w":64,"h":64},
+	"frame": {"x":258,"y":2,"w":60,"h":60},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
-	"sourceSize": {"w":64,"h":64},
+	"spriteSourceSize": {"x":0,"y":0,"w":60,"h":60},
+	"sourceSize": {"w":60,"h":60},
 	"pivot": {"x":0.5,"y":0.5}
 },
 "yellow":
 {
-	"frame": {"x":320,"y":0,"w":64,"h":64},
+	"frame": {"x":322,"y":2,"w":60,"h":60},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
-	"sourceSize": {"w":64,"h":64},
+	"spriteSourceSize": {"x":0,"y":0,"w":60,"h":60},
+	"sourceSize": {"w":60,"h":60},
 	"pivot": {"x":0.5,"y":0.5}
 }},
 "meta": {
@@ -61,6 +61,6 @@
 	"format": "RGBA8888",
 	"size": {"w":384,"h":64},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:ae529d30357662066d526413b17f5036:7edd2855269162098a85768a66251fdc:e98d2a43cc48d346f5f5dfe653df4517$"
+	"smartupdate": "$TexturePacker:SmartUpdate:1e8fd1f37e1b9ae35fcf74e42df42253:8f85e2eebc00ae28f1eae64717138e73:bca2200893a80f12811007d61ceaffd1$"
 }
 }

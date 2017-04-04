@@ -1,3 +1,4 @@
+
 var MLoader = function (onLoaded) {
   if(typeof onLoaded !== 'function') throw new TypeError('onHelpTap is not a function');
 
@@ -8,10 +9,7 @@ var MLoader = function (onLoaded) {
 
 MLoader.prototype.loadAssets = function () {
   window.WebFontConfig = {
-      google: {
-          families: this.fonts
-      },
-
+      google: this.fonts,
       active: function() {
         PIXI.loader.add(this.resourceArray).load(this.onLoadHandler)
       }.bind(this)
@@ -26,5 +24,5 @@ MLoader.prototype.__initResourceArray = function () {
 }
 
 MLoader.prototype.__initWebFonts = function () {
-  this.fonts = ['Varela+Round', 'Fredoka+One']
+  this.fonts = {families: ['Varela+Round', 'Fredoka+One']}
 }
