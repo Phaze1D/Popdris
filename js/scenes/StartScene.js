@@ -53,5 +53,5 @@ StartScene.prototype.__initTitle = function () {
 
 
 StartScene.BUBBLE_GENERATOR_FUNC = function (totalTime) {
-  return {dropRate: 1/5, speed: 4}
+  return {dropRate: 1/2.0, speed: 4}
 }

@@ -13,26 +13,36 @@ BubbleGenerator.prototype.constructor = BubbleGenerator
 
 BubbleGenerator.prototype.start = function () {
   APP.ticker.add(function () {
+
     if(this.timer/1000 >= this.dropRate){
-      var diff = this.difficulty(this.totalTime)
-      this.dropRate = diff.dropRate
-
-      var bub = this.generateRandomBubble()
-      bub.fall(diff.speed)
-      this.addChild(bub)
-      this.timer = 0;
-
-      if( this.getChildAt(0).y > this.gheight){
-        this.removeChildAt(0)
-      }
+      this.dropBubble()
     }
+
+    this.updateBubbles()
     this.totalTime += APP.ticker.elapsedMS
     this.timer += APP.ticker.elapsedMS
   }.bind(this))
 }
 
-BubbleGenerator.prototype.stop = function () {
+BubbleGenerator.prototype.updateBubbles = function () {
+  for (var i = 0; i < this.children.length; i++) {
+    this.children[i].fall()
+  }
+}
 
+BubbleGenerator.prototype.dropBubble = function () {
+  var diff = this.difficulty(this.totalTime)
+  this.dropRate = diff.dropRate
+
+  var bub = this.generateRandomBubble()
+  bub.velocity = diff.speed
+  this.addChild(bub)
+  this.timer = 0;
+
+  if( this.getChildAt(0).y > this.gheight){
+    var rb = this.removeChildAt(0)
+    rb.destroy({children: true})
+  }
 }
 
 BubbleGenerator.prototype.generateRandomBubble = function () {
@@ -47,9 +57,10 @@ BubbleGenerator.prototype.generateBubble = function (color) {
   var totalFit = (this.gwidth - minMargin) / (bub.width + minMargin)
   var numBubbFit = Math.floor( totalFit )
   var extraMargin = ( (totalFit - numBubbFit) * bub.width ) / (numBubbFit + 1)
-  var randPos = Math.floor(Math.random() * numBubbFit)
+  var randColumn = Math.floor(Math.random() * numBubbFit)
+  bub.column = randColumn
 
-  bub.x = (minMargin + bub.width + extraMargin) * randPos + minMargin + extraMargin
+  bub.x = (minMargin + bub.width + extraMargin) * randColumn + minMargin + extraMargin
   bub.y = -bub.height
   return bub
 }

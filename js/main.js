@@ -12,7 +12,20 @@ function init() {
   document.getElementById('spinner').style.display = 'none'
   document.getElementById('container').appendChild(APP.view);
   resize();
+  createStartScene();
+}
 
-  var startScene = new StartScene(function () {}, function () {})
+function createPlayScene() {
+  var startScene = APP.stage.removeChildAt(0)
+  startScene.destroy({children: true})
+}
+
+function createStartScene() {
+  var startScene = new StartScene(createPlayScene, createHelpScene)
   APP.stage.addChild(startScene)
+}
+
+
+function createHelpScene() {
+
 }
