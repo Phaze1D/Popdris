@@ -1,3 +1,4 @@
+
 const APP = new PIXI.Application(GAME_WIDTH, GAME_HEIGHT, {
   antialiasing: true,
   transparent: true,
@@ -18,10 +19,14 @@ function init() {
 function createPlayScene() {
   var startScene = APP.stage.removeChildAt(0)
   startScene.destroy({children: true})
+  var playScene = new PlayScene()
+  playScene.startGame()
+  APP.stage.addChild(playScene)
 }
 
 function createStartScene() {
   var startScene = new StartScene(createPlayScene, createHelpScene)
+  startScene.startBackground()
   APP.stage.addChild(startScene)
 }
 

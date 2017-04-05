@@ -18,10 +18,8 @@ StartScene.prototype = Object.create(Container.prototype);
 StartScene.prototype.constructor = StartScene
 
 StartScene.prototype.__initGenerator = function () {
-  this.gen = new BubbleGenerator(StartScene.BUBBLE_GENERATOR_FUNC, GAME_WIDTH, GAME_HEIGHT)
-  // this.gen.alpha = 0.5
-  this.gen.start()
-  this.addChild(this.gen)
+  this.bubbleGen = new BubbleGenerator(StartScene.BUBBLE_GENERATOR_FUNC, GAME_WIDTH, GAME_HEIGHT)
+  this.addChild(this.bubbleGen)
 }
 
 StartScene.prototype.__initPlayButton = function () {
@@ -51,7 +49,11 @@ StartScene.prototype.__initTitle = function () {
   this.addChild(title)
 }
 
+StartScene.prototype.startBackground = function () {
+  APP.ticker.add(this.bubbleGen.update.bind(this.bubbleGen))
+}
+
 
 StartScene.BUBBLE_GENERATOR_FUNC = function (totalTime) {
-  return {dropRate: 1/2.0, speed: 4}
+  return {dropRate: 1/3, speed: 4}
 }

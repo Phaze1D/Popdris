@@ -6,3 +6,27 @@ function resize() {
 }
 
 window.addEventListener("resize", resize);
+
+
+function angle(startPoint, endPoint) {
+  var dx = endPoint.x - startPoint.x
+  var dy = endPoint.y - startPoint.y
+  var theta = Math.atan2(dy, dx)
+  theta *= 180 / Math.PI
+  if (theta < 0) theta = 360 + theta
+  return theta;
+}
+
+
+ function getDirection(angle) {
+  if( (angle >= 315 && angle < 360) || (angle < 45 && angle >= 0) )
+    return RIGHT
+
+  if(angle >= 45 && angle < 135)
+    return DOWN
+
+  if(angle >= 135 && angle < 225)
+    return LEFT
+
+  return UP
+}

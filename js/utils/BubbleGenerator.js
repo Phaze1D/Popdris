@@ -11,17 +11,16 @@ var BubbleGenerator = function (difficultyVsTimeFunc, width, height) {
 BubbleGenerator.prototype = Object.create(Container.prototype);
 BubbleGenerator.prototype.constructor = BubbleGenerator
 
-BubbleGenerator.prototype.start = function () {
-  APP.ticker.add(function () {
+BubbleGenerator.prototype.update = function () {
+  var bub = null
+  if(this.timer/1000 >= this.dropRate){
+    bub = this.dropBubble()
+  }
 
-    if(this.timer/1000 >= this.dropRate){
-      this.dropBubble()
-    }
-
-    this.updateBubbles()
-    this.totalTime += APP.ticker.elapsedMS
-    this.timer += APP.ticker.elapsedMS
-  }.bind(this))
+  this.updateBubbles()
+  this.totalTime += APP.ticker.elapsedMS
+  this.timer += APP.ticker.elapsedMS
+  return bub
 }
 
 BubbleGenerator.prototype.updateBubbles = function () {
@@ -39,10 +38,13 @@ BubbleGenerator.prototype.dropBubble = function () {
   this.addChild(bub)
   this.timer = 0;
 
+
   if( this.getChildAt(0).y > this.gheight){
     var rb = this.removeChildAt(0)
     rb.destroy({children: true})
   }
+
+  return bub
 }
 
 BubbleGenerator.prototype.generateRandomBubble = function () {
@@ -53,14 +55,14 @@ BubbleGenerator.prototype.generateRandomBubble = function () {
 
 BubbleGenerator.prototype.generateBubble = function (color) {
   var bub = new Bubble(color)
-  var minMargin = 2
-  var totalFit = (this.gwidth - minMargin) / (bub.width + minMargin)
+  var totalFit = (this.gwidth - Bubble.MARGIN) / (Bubble.DIAMETER + Bubble.MARGIN)
   var numBubbFit = Math.floor( totalFit )
-  var extraMargin = ( (totalFit - numBubbFit) * bub.width ) / (numBubbFit + 1)
+  this.numOfColumns = numBubbFit
+  var extraMargin = ( (totalFit - numBubbFit) * Bubble.DIAMETER ) / (numBubbFit + 1)
   var randColumn = Math.floor(Math.random() * numBubbFit)
   bub.column = randColumn
 
-  bub.x = (minMargin + bub.width + extraMargin) * randColumn + minMargin + extraMargin
+  bub.x = (Bubble.MARGIN + Bubble.DIAMETER + extraMargin) * randColumn + Bubble.MARGIN + extraMargin
   bub.y = -bub.height
   return bub
 }
