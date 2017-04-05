@@ -71,8 +71,11 @@ Bubble.prototype.onDragEnd = function (event) {
   if(this.dragData.dragging){
     var position = event.data.getLocalPosition(this.parent)
     this.dragData.dragging = false
-    var direction = getDirection( angle(this.dragData, position) )
-    this.onRequestDragEnd(this.row, this.column, direction);
+
+    if(distance(this.dragData, position) > Bubble.DIAMETER / 4 ){
+      var direction = getDirection( angle(this.dragData, position) )
+      this.onRequestDragEnd(this.row, this.column, direction);
+    }
   }
 }
 

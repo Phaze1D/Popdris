@@ -8,6 +8,12 @@ function resize() {
 window.addEventListener("resize", resize);
 
 
+function distance(startPoint, endPoint) {
+  var dx = endPoint.x - startPoint.x
+  var dy = endPoint.y - startPoint.y
+  return Math.sqrt( Math.pow(dx,2) + Math.pow(dy,2))
+}
+
 function angle(startPoint, endPoint) {
   var dx = endPoint.x - startPoint.x
   var dy = endPoint.y - startPoint.y
@@ -18,7 +24,7 @@ function angle(startPoint, endPoint) {
 }
 
 
- function getDirection(angle) {
+function getDirection(angle) {
   if( (angle >= 315 && angle < 360) || (angle < 45 && angle >= 0) )
     return RIGHT
 
