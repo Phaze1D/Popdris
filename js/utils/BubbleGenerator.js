@@ -25,7 +25,12 @@ BubbleGenerator.prototype.update = function () {
 
 BubbleGenerator.prototype.updateBubbles = function () {
   for (var i = 0; i < this.children.length; i++) {
-    this.children[i].fall()
+    if(this.children[i].switching){
+      this.children[i].switch()
+    }else{
+      this.children[i].fall()
+    }
+
   }
 }
 

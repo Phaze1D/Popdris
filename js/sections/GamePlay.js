@@ -48,7 +48,7 @@ GamePlay.prototype.update = function () {
     var extraMargin = ( (totalFit - numBubbFit) * Bubble.DIAMETER ) / (numBubbFit + 1)
     var totalBubbleDiameter = Bubble.DIAMETER + extraMargin + Bubble.MARGIN
 
-    bub.finalY =  GamePlay.HEIGHT - ( totalBubbleDiameter * (bub.row) ) - totalBubbleDiameter
+    bub.finaly =  GamePlay.HEIGHT - ( totalBubbleDiameter * (bub.row) ) - totalBubbleDiameter
     bub.onRequestDragEnd = this.onRequestDragEnd.bind(this)
 
   }
@@ -56,30 +56,41 @@ GamePlay.prototype.update = function () {
 
 GamePlay.prototype.onRequestDragEnd = function (row, column, direction) {
   if(direction == UP && row + 1 >= 0){
-    this.switchBubbles({r: row, c: column}, {r: row+1, c: column}, 'y')
+    this.switchBubbles({r: row, c: column}, {r: row+1, c: column}, direction, 'y')
   }
 
   if(direction == DOWN && row - 1 >= 0){
-    this.switchBubbles({r: row, c: column}, {r: row-1, c: column}, 'y')
+    this.switchBubbles({r: row, c: column}, {r: row-1, c: column}, direction, 'y')
   }
 
   if(direction == LEFT && column - 1 >= 0 && column - 1 < this.bubbleGen.numOfColumns){
-    this.switchBubbles({r: row, c: column}, {r: row, c: column-1}, 'x')
+    this.switchBubbles({r: row, c: column}, {r: row, c: column-1}, direction, 'x')
   }
 
   if(direction == RIGHT && column + 1 >= 0 && column + 1 < this.bubbleGen.numOfColumns){
-    this.switchBubbles({r: row, c: column}, {r: row, c: column+1}, 'x')
+    this.switchBubbles({r: row, c: column}, {r: row, c: column+1}, direction, 'x')
   }
 
 }
 
-GamePlay.prototype.switchBubbles = function (ind1, ind2, key) {
-  if(this.bubbleGrid[ind2.c] && this.bubbleGrid[ind2.c][ind2.r] && !this.bubbleGrid[ind2.c][ind2.r].moving){
+GamePlay.prototype.switchBubbles = function (ind1, ind2, direction, key) {
+  if(this.bubbleGrid[ind2.c] && this.bubbleGrid[ind2.c][ind2.r] &&
+    !this.bubbleGrid[ind2.c][ind2.r].falling && !this.bubbleGrid[ind2.c][ind2.r].switching){
+      
     var sideBub = this.bubbleGrid[ind2.c][ind2.r]
     var bub = this.bubbleGrid[ind1.c][ind1.r]
     this.bubbleGrid[ind2.c][ind2.r] = bub
     this.bubbleGrid[ind1.c][ind1.r] = sideBub
-    Bubble.switchAnimation(bub, sideBub, key)
+    bub.column = ind2.c
+    bub.row = ind2.r
+    sideBub.column = ind1.c
+    sideBub.row = ind1.r
+    bub['final' + key] = sideBub[key]
+    sideBub['final' + key] = bub[key]
+    bub.switching = true
+    sideBub.switching = true
+    bub.switchDirection = direction
+    sideBub.switchDirection = direction * -1
   }
 }
 
@@ -90,5 +101,5 @@ GamePlay.X = 2
 GamePlay.Y = GAME_HEIGHT - GamePlay.HEIGHT - 2
 
 GamePlay.BUBBLE_GENERATOR_FUNC = function () {
-  return {dropRate: 1, speed: 10}
+  return {dropRate: 1/3, speed: 10}
 }

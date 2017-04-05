@@ -1,11 +1,16 @@
 var Bubble = function (color) {
   PIXI.Sprite.call(this, resources.bubbles.textures[color]);
+  this.color = color
   this.width = Bubble.DIAMETER
   this.height = Bubble.DIAMETER
-  this.finalY = GAME_HEIGHT + Bubble.DIAMETER
+  this.finaly = GAME_HEIGHT + Bubble.DIAMETER
+  this.finalx = 0
   this.interactive = true;
   this.dragData = {dragging: false, x: 1, y: 2}
-  this.moving = true
+  this.falling = true
+  this.velocity = null
+  this.switchDirection = null
+  this.switching = false
 
   this.on('pointerdown', this.onDragStart)
     .on('pointerup', this.onDragEnd)
@@ -16,20 +21,49 @@ Bubble.prototype = Object.create(PIXI.Sprite.prototype);
 Bubble.prototype.constructor = Bubble
 
 Bubble.prototype.fall = function () {
-  if(this.y + this.velocity < this.finalY){
+  if(this.y + this.velocity < this.finaly){
     this.y += this.velocity
-    this.moving = true
+    this.falling = true
   }else{
-    this.y = this.finalY
-    this.moving = false
+    this.velocity = 4
+    this.y = this.finaly
+    this.falling = false
+  }
+}
+
+Bubble.prototype.switch = function () {
+
+  switch (this.switchDirection) {
+    case UP:
+      this.y = (this.y > this.finaly ? this.y - this.velocity : this.finaly)
+      this.switching = (this.y != this.finaly)
+      break;
+
+    case DOWN:
+      this.y = (this.y < this.finaly ? this.y + this.velocity : this.finaly)
+      this.switching = (this.y != this.finaly)
+      break;
+
+    case LEFT:
+      this.x = (this.x > this.finalx ? this.x - this.velocity : this.finalx)
+      this.switching = (this.x != this.finalx)
+      break;
+
+    case RIGHT:
+      this.x = (this.x < this.finalx ? this.x + this.velocity : this.finalx)
+      this.switching = (this.x != this.finalx)
+      break;
+
   }
 }
 
 Bubble.prototype.onDragStart = function (event) {
-  this.dragData.dragging = true
-  var position = event.data.getLocalPosition(this.parent)
-  this.dragData.x = position.x
-  this.dragData.y = position.y
+  if(!this.switching){
+    this.dragData.dragging = true
+    var position = event.data.getLocalPosition(this.parent)
+    this.dragData.x = position.x
+    this.dragData.y = position.y
+  }
 }
 
 
