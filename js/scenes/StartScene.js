@@ -18,7 +18,7 @@ StartScene.prototype = Object.create(Container.prototype);
 StartScene.prototype.constructor = StartScene
 
 StartScene.prototype.__initGenerator = function () {
-  this.bubbleGen = new BubbleGenerator(StartScene.BUBBLE_GENERATOR_FUNC, GAME_WIDTH, GAME_HEIGHT)
+  this.bubbleGen = new BubbleSpawner(StartScene.BUBBLE_GENERATOR_FUNC, GAME_WIDTH, GAME_HEIGHT)
   this.addChild(this.bubbleGen)
 }
 

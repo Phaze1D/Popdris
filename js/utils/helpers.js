@@ -23,7 +23,6 @@ function angle(startPoint, endPoint) {
   return theta;
 }
 
-
 function getDirection(angle) {
   if( (angle >= 315 && angle < 360) || (angle < 45 && angle >= 0) )
     return RIGHT
@@ -33,6 +32,5 @@ function getDirection(angle) {
 
   if(angle >= 135 && angle < 225)
     return LEFT
-
   return UP
 }

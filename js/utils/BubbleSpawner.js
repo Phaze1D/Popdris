@@ -1,4 +1,4 @@
-var BubbleGenerator = function (difficultyVsTimeFunc, width, height) {
+var BubbleSpawner = function (difficultyVsTimeFunc, width, height) {
   Container.call(this);
   this.dropRate = 1/2
   this.totalTime = 0
@@ -8,25 +8,28 @@ var BubbleGenerator = function (difficultyVsTimeFunc, width, height) {
   this.difficulty = difficultyVsTimeFunc
 }
 
-BubbleGenerator.prototype = Object.create(Container.prototype);
-BubbleGenerator.prototype.constructor = BubbleGenerator
+BubbleSpawner.prototype = Object.create(Container.prototype);
+BubbleSpawner.prototype.constructor = BubbleSpawner
 
-BubbleGenerator.prototype.update = function () {
+BubbleSpawner.prototype.update = function (checking) {
   var bub = null
   if(this.timer/1000 >= this.dropRate){
     bub = this.dropBubble()
   }
-
-  this.updateBubbles()
+  this.updateBubbles(checking)
   this.totalTime += APP.ticker.elapsedMS
   this.timer += APP.ticker.elapsedMS
   return bub
 }
 
-BubbleGenerator.prototype.updateBubbles = function () {
+BubbleSpawner.prototype.updateBubbles = function (checking) {
   for (var i = 0; i < this.children.length; i++) {
+    if(!checking){
+      this.children[i].checked = false
+    }
+
     if(this.children[i].switching){
-      this.children[i].switch()
+      this.children[i].switchAnimation()
     }else{
       this.children[i].fall()
     }
@@ -34,7 +37,7 @@ BubbleGenerator.prototype.updateBubbles = function () {
   }
 }
 
-BubbleGenerator.prototype.dropBubble = function () {
+BubbleSpawner.prototype.dropBubble = function () {
   var diff = this.difficulty(this.totalTime)
   this.dropRate = diff.dropRate
 
@@ -52,13 +55,13 @@ BubbleGenerator.prototype.dropBubble = function () {
   return bub
 }
 
-BubbleGenerator.prototype.generateRandomBubble = function () {
+BubbleSpawner.prototype.generateRandomBubble = function () {
   var randInt = Math.floor(Math.random() * (Bubble.COLORS.length))
   var randColor = Bubble.COLORS[randInt]
   return this.generateBubble(randColor)
 }
 
-BubbleGenerator.prototype.generateBubble = function (color) {
+BubbleSpawner.prototype.generateBubble = function (color) {
   var bub = new Bubble(color)
   var totalFit = (this.gwidth - Bubble.MARGIN) / (Bubble.DIAMETER + Bubble.MARGIN)
   var numBubbFit = Math.floor( totalFit )

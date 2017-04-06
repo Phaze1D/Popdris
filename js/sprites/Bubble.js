@@ -11,10 +11,16 @@ var Bubble = function (color) {
   this.velocity = null
   this.switchDirection = null
   this.switching = false
+  this.onRequestDragEnd = null
+  this.onRequestClick = null
+  this.lastClick = 0
+  this.checked = false
 
   this.on('pointerdown', this.onDragStart)
     .on('pointerup', this.onDragEnd)
     .on('pointerupoutside', this.onDragEnd)
+    .on('click', this.onClick)
+    .on('tap', this.onClick)
 }
 
 Bubble.prototype = Object.create(PIXI.Sprite.prototype);
@@ -31,7 +37,7 @@ Bubble.prototype.fall = function () {
   }
 }
 
-Bubble.prototype.switch = function () {
+Bubble.prototype.switchAnimation = function () {
 
   switch (this.switchDirection) {
     case UP:
@@ -57,6 +63,15 @@ Bubble.prototype.switch = function () {
   }
 }
 
+Bubble.prototype.onClick = function (event) {
+  var thisClick = new Date().getTime();
+  var isDoubleClick = thisClick - this.lastClick < 200;
+  if (isDoubleClick) {
+    this.onRequestClick(this.column, this.row, this.color)
+  }
+  this.lastClick = thisClick;
+}
+
 Bubble.prototype.onDragStart = function (event) {
   if(!this.switching){
     this.dragData.dragging = true
@@ -74,18 +89,13 @@ Bubble.prototype.onDragEnd = function (event) {
 
     if(distance(this.dragData, position) > Bubble.DIAMETER / 4 ){
       var direction = getDirection( angle(this.dragData, position) )
-      this.onRequestDragEnd(this.row, this.column, direction);
+      this.onRequestDragEnd(this.column, this.row, direction);
     }
   }
 }
 
 
-Bubble.switchAnimation = function (bub1, bub2, key) {
-
-}
-
-
 
 Bubble.COLORS = ['blue', 'green', 'grey', 'yellow', 'red', 'purple']
-Bubble.DIAMETER = 32
+Bubble.DIAMETER = 40
 Bubble.MARGIN = 2
