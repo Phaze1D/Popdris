@@ -19,8 +19,6 @@ var Bubble = function (color) {
   this.on('pointerdown', this.onDragStart)
     .on('pointerup', this.onDragEnd)
     .on('pointerupoutside', this.onDragEnd)
-    .on('click', this.onClick)
-    .on('tap', this.onClick)
 }
 
 Bubble.prototype = Object.create(PIXI.Sprite.prototype);
@@ -31,9 +29,13 @@ Bubble.prototype.fall = function () {
     this.y += this.velocity
     this.falling = true
   }else{
-    this.velocity = 4
+    this.velocity = 6
     this.y = this.finaly
     this.falling = false
+
+    if(this.y == GamePlay.HEIGHT - ( GamePlay.TOTAL_BUBBLE_DIA * (GamePlay.NUM_BUBBLES - 1) ) - GamePlay.TOTAL_BUBBLE_DIA){
+      this.onRequestLost()
+    }
   }
 }
 
@@ -63,15 +65,6 @@ Bubble.prototype.switchAnimation = function () {
   }
 }
 
-Bubble.prototype.onClick = function (event) {
-  var thisClick = new Date().getTime();
-  var isDoubleClick = thisClick - this.lastClick < 200;
-  if (isDoubleClick) {
-    this.onRequestClick(this.column, this.row, this.color)
-  }
-  this.lastClick = thisClick;
-}
-
 Bubble.prototype.onDragStart = function (event) {
   if(!this.switching){
     this.dragData.dragging = true
@@ -90,6 +83,8 @@ Bubble.prototype.onDragEnd = function (event) {
     if(distance(this.dragData, position) > Bubble.DIAMETER / 4 ){
       var direction = getDirection( angle(this.dragData, position) )
       this.onRequestDragEnd(this.column, this.row, direction);
+    }else{
+      this.onRequestClick(this.column, this.row, this.color)
     }
   }
 }

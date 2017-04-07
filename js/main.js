@@ -19,12 +19,16 @@ function init() {
 function createPlayScene() {
   var startScene = APP.stage.removeChildAt(0)
   startScene.destroy({children: true})
-  var playScene = new PlayScene()
+  var playScene = new PlayScene(createStartScene)
   playScene.startGame()
   APP.stage.addChild(playScene)
 }
 
 function createStartScene() {
+  if(APP.stage.children.length > 0){
+    var playScene = APP.stage.removeChildAt(0)
+    playScene.destroy({children: true})
+  }
   var startScene = new StartScene(createPlayScene, createHelpScene)
   startScene.startBackground()
   APP.stage.addChild(startScene)

@@ -6,6 +6,7 @@ var GamePlay = function () {
   this.__initBorder()
   this.bubbleGrid = new Array(this.spawner.numOfColumns)
   this.checkingPop = false
+  this.onUpdateScore = null
 }
 
 GamePlay.prototype = Object.create(Container.prototype);
@@ -31,7 +32,7 @@ GamePlay.prototype.__initMask = function () {
 
 
 GamePlay.prototype.__initGenerator = function () {
-  this.spawner = new BubbleSpawner(GamePlay.BUBBLE_GENERATOR_FUNC, GamePlay.WIDTH, GamePlay.HEIGHT)
+  this.spawner = new BubbleSpawner(GamePlay.difficultyEquation, GamePlay.WIDTH, GamePlay.HEIGHT)
   this.spawner.x = GamePlay.X
   this.spawner.y = GamePlay.Y
   this.addChild(this.spawner)
@@ -41,14 +42,11 @@ GamePlay.prototype.__initGenerator = function () {
 GamePlay.prototype.update = function () {
   var bub = this.spawner.update(this.checkingPop)
   if(bub){
-    this.bubbleGrid[bub.column] ? this.bubbleGrid[bub.column].push(bub) : this.bubbleGrid[bub.column] = [bub]
+    if(!this.bubbleGrid[bub.column]) this.bubbleGrid[bub.column] = [];
+    this.bubbleGrid[bub.column].push(bub)
     bub.row = this.bubbleGrid[bub.column].length - 1
-    var totalFit = (GamePlay.HEIGHT - Bubble.MARGIN) / (Bubble.DIAMETER + Bubble.MARGIN)
-    var numBubbFit = Math.floor( totalFit )
-    var extraMargin = ( (totalFit - numBubbFit) * Bubble.DIAMETER ) / (numBubbFit + 1)
-    var totalBubbleDiameter = Bubble.DIAMETER + extraMargin + Bubble.MARGIN
-
-    bub.finaly = GamePlay.HEIGHT - ( totalBubbleDiameter * (bub.row) ) - totalBubbleDiameter
+    bub.onRequestLost = this.onRequestLost
+    bub.finaly = GamePlay.HEIGHT - ( GamePlay.TOTAL_BUBBLE_DIA * (bub.row) ) - GamePlay.TOTAL_BUBBLE_DIA
     bub.onRequestDragEnd = this.onBubbleDragEnd.bind(this)
     bub.onRequestClick = this.onBubbleClick.bind(this)
   }
@@ -62,6 +60,7 @@ GamePlay.prototype.getBubble = function (column, row) {
          this.bubbleGrid[column][row]
 }
 
+
 GamePlay.prototype.onBubbleClick = function (column, row, color) {
   var popData = {columns: {}, toRemove: []}
   this.checkingPop = true
@@ -70,7 +69,9 @@ GamePlay.prototype.onBubbleClick = function (column, row, color) {
   if(popData.toRemove.length >= 3){
     this.removeBubbles(popData.toRemove)
     this.adjustBubbles(popData.columns)
+    this.onUpdateScore(GamePlay.pointsEquation(popData.toRemove.length))
   }
+
 }
 
 GamePlay.prototype.popAlgorithm = function (column, row, color, popData) {
@@ -107,18 +108,10 @@ GamePlay.prototype.adjustBubbles = function (columns) {
         if(bub){
           bub.row -= lowerBy
           this.bubbleGrid[column][bub.row] = bub
-
-          var totalFit = (GamePlay.HEIGHT - Bubble.MARGIN) / (Bubble.DIAMETER + Bubble.MARGIN)
-          var numBubbFit = Math.floor( totalFit )
-          var extraMargin = ( (totalFit - numBubbFit) * Bubble.DIAMETER ) / (numBubbFit + 1)
-          var totalBubbleDiameter = Bubble.DIAMETER + extraMargin + Bubble.MARGIN
-
-          bub.finaly = GamePlay.HEIGHT - ( totalBubbleDiameter * (bub.row) ) - totalBubbleDiameter
+          bub.finaly = GamePlay.HEIGHT - ( GamePlay.TOTAL_BUBBLE_DIA * (bub.row) ) - GamePlay.TOTAL_BUBBLE_DIA
         }else{
           lowerBy++
         }
-
-
       }
       this.bubbleGrid[column].length -= lowerBy
     }
@@ -162,15 +155,19 @@ GamePlay.prototype.switchBubbles = function (ind1, ind2, direction, key) {
 }
 
 
-GamePlay.WIDTH = 380
-GamePlay.HEIGHT = 650
-GamePlay.X = 2
-GamePlay.Y = GAME_HEIGHT - GamePlay.HEIGHT - 2
+GamePlay.WIDTH = 380;
+GamePlay.HEIGHT = 650;
+GamePlay.X = 2;
+GamePlay.Y = GAME_HEIGHT - GamePlay.HEIGHT - 2;
+GamePlay.TOTAL_FIT = (GamePlay.HEIGHT - Bubble.MARGIN) / (Bubble.DIAMETER + Bubble.MARGIN);
+GamePlay.NUM_BUBBLES = Math.floor( GamePlay.TOTAL_FIT );
+GamePlay.EXTRA_MARGIN = ((GamePlay.TOTAL_FIT - GamePlay.NUM_BUBBLES) * Bubble.DIAMETER ) / (GamePlay.NUM_BUBBLES + 1);
+GamePlay.TOTAL_BUBBLE_DIA = Bubble.DIAMETER + GamePlay.EXTRA_MARGIN + Bubble.MARGIN;
 
-GamePlay.BUBBLE_GENERATOR_FUNC = function () {
-  return {dropRate: 1/4, speed: 4}
+GamePlay.difficultyEquation = function () {
+  return {dropRate: 1/2, speed: 4}
 }
 
-GamePlay.POINTS_EQUATION = function (bubAmount) {
+GamePlay.pointsEquation = function (bubAmount) {
   return Math.pow(bubAmount, 2)
 }

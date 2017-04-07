@@ -18,7 +18,7 @@ StartScene.prototype = Object.create(Container.prototype);
 StartScene.prototype.constructor = StartScene
 
 StartScene.prototype.__initGenerator = function () {
-  this.bubbleGen = new BubbleSpawner(StartScene.BUBBLE_GENERATOR_FUNC, GAME_WIDTH, GAME_HEIGHT)
+  this.bubbleGen = new BubbleSpawner(StartScene.difficultyEquation, GAME_WIDTH, GAME_HEIGHT)
   this.addChild(this.bubbleGen)
 }
 
@@ -54,6 +54,6 @@ StartScene.prototype.startBackground = function () {
 }
 
 
-StartScene.BUBBLE_GENERATOR_FUNC = function (totalTime) {
+StartScene.difficultyEquation = function (totalTime) {
   return {dropRate: 1/3, speed: 4}
 }
