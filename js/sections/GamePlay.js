@@ -154,6 +154,19 @@ GamePlay.prototype.switchBubbles = function (ind1, ind2, direction, key) {
   }
 }
 
+GamePlay.prototype.reset = function () {
+  this.spawner.removeChildren()
+  for (var i = 0; i < this.bubbleGrid.length; i++) {
+    for (var j = 0; j < this.bubbleGrid[i].length; j++) {
+      this.bubbleGrid[i][j].destroy()
+    }
+  }
+
+  this.bubbleGrid = new Array(this.spawner.numOfColumns)
+  this.spawner.totalTime = 0
+  this.spawner.timer = 0
+};
+
 
 GamePlay.WIDTH = 380;
 GamePlay.HEIGHT = 650;
@@ -166,7 +179,7 @@ GamePlay.TOTAL_BUBBLE_DIA = Bubble.DIAMETER + GamePlay.EXTRA_MARGIN + Bubble.MAR
 
 GamePlay.difficultyEquation = function (t) {
   return {
-    dropRate: (Math.pow(t, 1/6) + Math.log2(t))/10,
+    dropRate: (Math.log2(t) + t/1000 + 10)/100,
     speed: Math.log2(t)/4 + t/100000
   }
 }

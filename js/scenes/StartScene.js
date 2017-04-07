@@ -55,5 +55,5 @@ StartScene.prototype.startBackground = function () {
 
 
 StartScene.difficultyEquation = function (totalTime) {
-  return {dropRate: 1/3, speed: 4}
+  return {dropRate: 2, speed: 4}
 }

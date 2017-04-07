@@ -33,7 +33,6 @@ BubbleSpawner.prototype.updateBubbles = function (checking) {
     }else{
       this.children[i].fall()
     }
-
   }
 }
 
@@ -45,7 +44,6 @@ BubbleSpawner.prototype.dropBubble = function () {
   bub.velocity = diff.speed
   this.addChild(bub)
   this.timer = 0;
-
 
   if( this.getChildAt(0).y > this.gheight){
     var rb = this.removeChildAt(0)

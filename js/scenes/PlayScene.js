@@ -1,8 +1,10 @@
-var PlayScene = function (onRequestLost) {
+var PlayScene = function (onRequestQuit) {
   Container.call(this)
   this.__initGamePlay()
   this.__initScore()
-  this.onRequestLost = onRequestLost
+  this.__initPauseSection()
+
+  this.onRequestQuit = onRequestQuit
   this.lost = false
 }
 
@@ -28,6 +30,9 @@ PlayScene.prototype.__initScore = function () {
   this.addChild(this.scoreLabel)
 }
 
+PlayScene.prototype.__initPauseSection = function () {
+  this.pauseSection = new PauseSection(this.onGameReset.bind(this),this.onGameQuit.bind(this))
+};
 
 PlayScene.prototype.startGame = function () {
   APP.ticker.add(function () {
@@ -44,5 +49,15 @@ PlayScene.prototype.updateScorce = function (points) {
 
 PlayScene.prototype.onGameLost = function () {
   this.lost = true
-  this.onRequestLost()
+  this.addChild(this.pauseSection)
+};
+
+PlayScene.prototype.onGameQuit = function () {
+  this.onRequestQuit()
+};
+
+PlayScene.prototype.onGameReset = function () {
+  this.removeChild(this.pauseSection)
+  this.gamePlay.reset()
+  this.lost = false
 };
