@@ -164,8 +164,11 @@ GamePlay.NUM_BUBBLES = Math.floor( GamePlay.TOTAL_FIT );
 GamePlay.EXTRA_MARGIN = ((GamePlay.TOTAL_FIT - GamePlay.NUM_BUBBLES) * Bubble.DIAMETER ) / (GamePlay.NUM_BUBBLES + 1);
 GamePlay.TOTAL_BUBBLE_DIA = Bubble.DIAMETER + GamePlay.EXTRA_MARGIN + Bubble.MARGIN;
 
-GamePlay.difficultyEquation = function () {
-  return {dropRate: 1/2, speed: 4}
+GamePlay.difficultyEquation = function (t) {
+  return {
+    dropRate: (Math.pow(t, 1/6) + Math.log2(t))/10,
+    speed: Math.log2(t)/4 + t/100000
+  }
 }
 
 GamePlay.pointsEquation = function (bubAmount) {

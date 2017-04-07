@@ -13,7 +13,7 @@ BubbleSpawner.prototype.constructor = BubbleSpawner
 
 BubbleSpawner.prototype.update = function (checking) {
   var bub = null
-  if(this.timer/1000 >= this.dropRate){
+  if(this.timer/1000 >= 1/this.dropRate){
     bub = this.dropBubble()
   }
   this.updateBubbles(checking)
