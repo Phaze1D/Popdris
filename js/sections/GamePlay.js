@@ -179,7 +179,7 @@ GamePlay.TOTAL_BUBBLE_DIA = Bubble.DIAMETER + GamePlay.EXTRA_MARGIN + Bubble.MAR
 
 GamePlay.difficultyEquation = function (t) {
   return {
-    dropRate: (Math.log2(t) + t/1000 + 10)/100,
+    dropRate: (Math.log2(t) + t/1000 + 10)/50,
     speed: Math.log2(t)/4 + t/100000
   }
 }

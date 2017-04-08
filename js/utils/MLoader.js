@@ -1,28 +1,21 @@
 
+/**
+* Creates MLoader
+* @class
+* @param {function} onLoaded - callback called when load finished
+* @throws {TypeError} - onLoaded must be a function
+*/
 var MLoader = function (onLoaded) {
   if(typeof onLoaded !== 'function') throw new TypeError('onHelpTap is not a function');
-
-  this.onLoadHandler = onLoaded
-  this.__initResourceArray()
-  this.__initWebFonts()
+  this.onRequestLoad = onLoaded
 }
 
+/** Loads the game assets starting with the google FONTS */
 MLoader.prototype.loadAssets = function () {
   window.WebFontConfig = {
-      google: this.fonts,
+      google: FONTS,
       active: function() {
-        PIXI.loader.add(this.resourceArray).load(this.onLoadHandler)
+        PIXI.loader.add(RESOURCES).load(this.onRequestLoad)
       }.bind(this)
   };
-}
-
-MLoader.prototype.__initResourceArray = function () {
-  this.resourceArray = [
-    {name: 'bubbles', url: 'assets/bubbles_atlas/bubbles.json'},
-    {name: 'ui', url: 'assets/ui_atlas/ui.json'}
-  ]
-}
-
-MLoader.prototype.__initWebFonts = function () {
-  this.fonts = {families: ['Varela+Round', 'Fredoka+One']}
 }
