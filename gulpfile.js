@@ -16,9 +16,9 @@ const jsFiles = [
   "js/main.js"
 ]
 
-gulp.task('minifyJS', function() {
+gulp.task('mini', function() {
   return gulp.src(jsFiles)
     .pipe(concat('index.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest('build'))
 });
