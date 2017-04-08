@@ -22,7 +22,7 @@ var Button = function (label, normalSprite, pressedSprite, labelStyle ) {
 }
 
 Button.prototype = Object.create(Sprite.prototype);
-Button.prototype.constructor = Button
+Button.prototype.constructor = Button;
 
 
 /**
@@ -47,7 +47,7 @@ Button.labelButtonFactory = function (label, normalSprite, pressedSprite, labelS
   button.on('pointerupoutside', function () {
     this.texture = resources.ui.textures[this.normalSprite];
   })
-  return button
+  return button;
 }
 
 
@@ -64,7 +64,7 @@ Button.RAISE_STYLE = {
   fontSize: 60,
   fontFamily: 'Varela Round',
   fill: '#fafafa'
-}
+};
 
 
 /**
@@ -80,4 +80,4 @@ Button.FLAT_STYLE = {
   fontSize: 60,
   fontFamily: 'Varela Round',
   fill: '#ff5722'
-}
+};
