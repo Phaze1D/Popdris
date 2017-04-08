@@ -48,7 +48,8 @@ GamePlay.prototype.__initMask = function () {
   mask.beginFill(0xFFFFFF, 0.25);
   mask.drawRect(GamePlay.X - 2, GamePlay.Y - 2, GamePlay.WIDTH + 4, GamePlay.HEIGHT + 4);
   mask.endFill();
-  this.mask = mask
+  this.mask = mask;
+  this.addChild(mask);
 }
 
 
@@ -71,7 +72,7 @@ GamePlay.prototype.__initSpawner = function () {
 GamePlay.prototype.update = function () {
   var bub = this.spawner.update(this.checkingPop);
   if(bub){
-    this.addBubble(bub)
+    this.addBubble(bub);
   }
 }
 
