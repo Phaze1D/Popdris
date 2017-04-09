@@ -16,4 +16,11 @@ and open the game at `localhost:8080`.
 ## Instructions
 - Move bubble by pressing and moving the pointer either up down left or right (can only move one step at a time)
 - Pop bubbles by tapping on a group of 3 or more bubbles of the same color
-- Objective is not to hit the top border and get as many points as possible 
+- Objective is not to hit the top border and get as many points as possible
+
+## Build With
+- [PixiJS](http://www.pixijs.com/) Javascript Game Engine
+- [SpinKit](http://tobiasahlin.com/spinkit/) The cool little spinner at the start
+
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](./LICENSE.md) file for details
