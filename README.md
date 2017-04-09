@@ -14,9 +14,9 @@ $ http-server ./
 and open the game at `localhost:8080`.
 
 ## Instructions
-- Move bubble by pressing and moving the pointer either up down left or right (can only move one step at a time)
-- Pop bubbles by tapping on a group of 3 or more bubbles of the same color
 - Objective is not to hit the top border and get as many points as possible
+- Move a bubble by pressing and moving the mouse either up down left or right (can only move one step at a time)
+- Pop bubbles by tapping on a group of 3 or more bubbles of the same color
 
 ## Build With
 - [PixiJS](http://www.pixijs.com/) Javascript Game Engine
