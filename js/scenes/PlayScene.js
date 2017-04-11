@@ -63,12 +63,10 @@ PlayScene.prototype.__initPauseSection = function () {
 /**
 * Starts the game
 */
-PlayScene.prototype.startGame = function () {
-  APP.ticker.add(function () {
-    if(!this.lost){
-      this.gamePlay.update();
-    }
-  }.bind(this));
+PlayScene.prototype.update = function () {
+  if(!this.lost){
+    this.gamePlay.update();
+  }
 }
 
 

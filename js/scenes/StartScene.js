@@ -69,8 +69,8 @@ StartScene.prototype.__initTitle = function () {
 /**
 * Starts the background animation
 */
-StartScene.prototype.startBackground = function () {
-  APP.ticker.add(this.bubbleGen.update.bind(this.bubbleGen));
+StartScene.prototype.update = function () {
+  this.bubbleGen.update()
 }
 
 
@@ -80,5 +80,5 @@ StartScene.prototype.startBackground = function () {
 * @return {object} - An object with the dropRate and bubble speed
 */
 StartScene.difficultyEquation = function (totalTime) {
-  return {dropRate: 2, speed: 4};
+  return {dropRate: 8, speed: 4};
 }

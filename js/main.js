@@ -40,9 +40,10 @@ function createStartScene() {
   if(APP.stage.children.length > 0){
     var playScene = APP.stage.removeChildAt(0);
     playScene.destroy({children: true});
+    APP.ticker.remove(playScene.update.bind(playScene));
   }
   var startScene = new StartScene(createPlayScene);
-  startScene.startBackground();
+  APP.ticker.add(startScene.update.bind(startScene));
   APP.stage.addChild(startScene);
 }
 
@@ -53,8 +54,9 @@ function createStartScene() {
 */
 function createPlayScene() {
   var startScene = APP.stage.removeChildAt(0);
+  APP.ticker.remove(startScene.update.bind(startScene));
   startScene.destroy({children: true});
   var playScene = new PlayScene(createStartScene);
-  playScene.startGame();
+  APP.ticker.add(playScene.update.bind(playScene));
   APP.stage.addChild(playScene);
 }
