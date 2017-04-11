@@ -64,7 +64,7 @@ Bubble.prototype.constructor = Bubble;
 */
 Bubble.prototype.fall = function () {
   if(this.y + this.velocity < this.finaly){
-    this.y += this.velocity;
+    this.y += (this.velocity * APP.ticker.deltaTime);
     this.falling = true;
   }else{
     this.velocity = 6;
