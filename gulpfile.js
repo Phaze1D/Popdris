@@ -16,7 +16,7 @@ const jsFiles = [
   "js/main.js"
 ]
 
-gulp.task('mini', function() {
+gulp.task('build', function() {
   return gulp.src(jsFiles)
     .pipe(concat('index.js'))
     .pipe(uglify())
