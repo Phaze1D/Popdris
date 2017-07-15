@@ -17,6 +17,28 @@ $ http-server ./
 ```
 and open the game at `localhost:8080`.
 
+
+## Pop Algorithm
+This is the algorithm that I use when the user clicks on a bubble. It is a recursive algorithm that checks if a bubble is not moving and if it is of the same color and hasn't been checked it adds it to a remove list. If the remove list length is greater than three, then it removes all the bubbles in the list. This algorithm resembles a Breath First Search algorithm, but instead, it is not searching for a particular node just traversing the graph.
+
+```javascript
+GamePlay.prototype.popAlgorithm = function (column, row, color, popData) {
+  var bub = this.getBubble(column, row);
+  if(bub && bub.color === color && !bub.falling && !bub.switching && !bub.checked){
+    bub.checked = true;
+    popData.toRemove.push(bub);
+
+    if(!popData.columns[column]) popData.columns[column] = {startAt: row};
+    if(popData.columns[column].startAt > row) popData.columns[column].startAt = row;
+
+    this.popAlgorithm(column, row + 1, color, popData); // Check up
+    this.popAlgorithm(column, row - 1, color, popData); // Check down
+    this.popAlgorithm(column - 1, row, color, popData); // Check left
+    this.popAlgorithm(column + 1, row, color, popData); // Check right
+  }
+}
+```
+
 ## Instructions
 - Objective is not to hit the top border and get as many points as possible
 - Move a bubble by pressing and moving the mouse either up down left or right. You can only move one step at a time, and you can only move to nonempty spaces.
